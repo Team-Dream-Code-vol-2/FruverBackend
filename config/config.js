@@ -1,5 +1,5 @@
 module.exports = {
     mongo: {
-        mongoURI: "mongodb://localhost/?retryWrites=true&w=majority"
+        mongoURI: "mongodb://localhost/fruver?retryWrites=true&w=majority"
     }
 }
