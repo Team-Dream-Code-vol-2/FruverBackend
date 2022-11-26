@@ -19,13 +19,15 @@ class SaleController extends GenericController {
             const { price } = await ProductService.findOne({ _id: productId })
             const newProduct = { product: productId, price, units };
             if (!cart) {
-                res.status(201).json(await this.service.create({ products: [newProduct] }));
+                const newCart = await this.service.create({ products: [newProduct] })
+                res.status(201).json(await this.service.findOne({ _id: newCart._id }));
             } else {
                 const products = (cart.products || [])
                 const product = products.find(({ product }) => String(product) === productId);
                 if (product) product.units += units;
                 else products.push(newProduct)
-                res.status(200).json(await this.service.update({ _id: cartId }, { products }));
+                await this.service.update({ _id: cartId }, { products })
+                res.status(200).json(await this.service.findOne({ _id: cartId }));
             }
         }
         catch (error) { next(error); }

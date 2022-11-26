@@ -9,6 +9,10 @@ class SaleService extends GenericService {
         }
         return SaleService.instance;
     }
+    
+    async findOne (filters= {}) {
+        return this.model.findOne(filters).populate("products.product");
+    }
 }
 
 module.exports = { SaleService: new SaleService() }

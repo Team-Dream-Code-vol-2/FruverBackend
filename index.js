@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require('cors')
 
 const { Database } = require("./config/db");
 const { ErrorHandler } = require("./middlewares/error.middleware");
@@ -6,6 +7,7 @@ const { productRoutes, inventoryRoutes, saleRoutes } = require("./routes");
 
 const PORT = 3000;
 const app = express();
+app.use(cors())
 
 Database.connect();
 
